@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deadlock - Optimized Launcher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Teko:wght@600&family=Titillium+Web:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="draggable-header">
+    <div class="window-controls">
+      <button id="btn-minimize">−</button>
+      <button id="btn-close">×</button>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo-area">
+      <div class="logo-icon"></div>
+    </div>
+
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a href="#" class="nav-link active" id="nav-launcher">LAUNCHER</a>
+      </li>
+      <li class="nav-item"><a href="#" class="nav-link" id="nav-about">ABOUT</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content - LAUNCHER tab -->
+  <main class="main-content" id="tab-launcher">
+    <div class="page-title">
+      <span>OPTIMIZER</span>
+    </div>
+
+    <div class="settings-panel">
+      <h2 class="panel-title">System Insights</h2>
+
+      <div class="setting-row">
+        <div class="setting-label">Total RAM</div>
+        <div class="setting-control value-display" id="total-ram">--- GB</div>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-label">Available RAM</div>
+        <div class="setting-control value-display" id="available-ram" style="color: var(--accent-color);">--- GB</div>
+      </div>
+
+      <div class="setting-row" style="margin-top: 20px;">
+        <div class="setting-control fw">
+          <div class="status-item" id="status-admin">
+            <div class="status-icon pending"></div>
+            <div class="status-text">Checking Administrator Privileges...</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-control fw">
+          <div class="status-item" id="status-config">
+            <div class="status-icon pending"></div>
+            <div class="status-text">Loading Configuration...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-panel has-bg" id="launch-actions" style="display: none;">
+      <h2 class="panel-title">Launch Configuration</h2>
+
+      <div class="setting-row" style="align-items: flex-start;">
+        <div class="setting-label large">Launcher Path (.url or .lnk)</div>
+        <div class="setting-control" style="flex-wrap: wrap;">
+          <input type="text" id="platform-path" class="styled-input"
+            placeholder="e.g. C:\Users\Public\Desktop\Deadlock.url" readonly>
+          <button class="btn-apply" id="btn-find-launcher" style="margin-top:0;">Auto-Search</button>
+          <button class="btn-apply" id="btn-manual-launcher" style="margin-top:0;">Manual</button>
+        </div>
+      </div>
+
+      <div class="log-output" id="log-output">
+        <div class="log-line">> System initialized. Waiting for paths...</div>
+      </div>
+
+      <button class="btn-primary" id="btn-start" disabled>OPTIMIZE & LAUNCH GAME</button>
+    </div>
+  </main>
+
+  <!-- Main Content - ABOUT tab -->
+  <main class="main-content" id="tab-about" style="display: none;">
+    <div class="page-title">
+      <span>ABOUT</span>
+    </div>
+
+    <div class="settings-panel has-bg">
+      <h2 class="panel-title" style="color:var(--accent-color); font-family:var(--font-heading); font-size:32px;">
+        DEADLOCK OPTIMIZED LAUNCHER</h2>
+      <div class="info-text">
+        <p><strong>What it does:</strong> This program aggressively clears your system's standby memory (RAM) and
+          optimizes the Windows working sets before launching the game.</p>
+        <p><strong>Why use it:</strong> Deadlock is highly memory-intensive. Running this optimizer frees up crucial
+          RAM, reducing stuttering and increasing overall framerate stability.</p>
+        <p><strong>When to use it:</strong> For best results, launch Deadlock through this optimizer <span
+            class="highlight-accent">every single time</span> you play.</p>
+      </div>
+
+      <div class="author-credits" style="text-align: left; margin-top: 40px;">
+        <h2 class="panel-title">Credits</h2>
+        <span class="author-link" id="author-link"
+          style="color: var(--text-main); font-size: 16px; cursor: pointer;">Author - <span
+            style="color: var(--accent-color);">maiblemoccasin</span></span>
+      </div>
+    </div>
+  </main>
+
+  <div class="bottom-bar" style="display: none;">
+  </div>
+
+  <!-- Overlays -->
+  <div class="overlay" id="launch-overlay">
+    <div class="overlay-content">
+      <h2 id="overlay-title">OPTIMIZING MEMORY</h2>
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="launch-progress"></div>
+      </div>
+      <div class="overlay-status" id="overlay-status">Emptying Working Sets...</div>
+      <div class="ram-freed mt-3" id="ram-freed" style="display: none;">
+        <span class="success-text">+<span id="ram-freed-amount">0</span> MB Freed</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="info-overlay">
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+
+</html>

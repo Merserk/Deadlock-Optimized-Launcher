@@ -1,0 +1,55 @@
+{
+  "name": "deadlock-optimized-launcher",
+  "version": "1.0.0",
+  "description": "Optimized launcher for Deadlock",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:clean": "node -e \"const fs=require('fs'); fs.readdirSync('dist').forEach(f=>{if(!f.endsWith('.exe')) fs.rmSync('dist/'+f, {recursive:true,force:true})})\"",
+    "build": "electron-builder build --win && npm run build:clean"
+  },
+  "build": {
+    "appId": "com.optimizer.deadlock",
+    "productName": "Deadlock Optimized Launcher",
+    "compression": "maximum",
+    "asar": true,
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer.js",
+      "index.html",
+      "style.css",
+      "bg-noise.png",
+      "icon.png",
+      "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+      "!**/node_modules/*/{test,__tests__,tests,example,examples}"
+    ],
+    "win": {
+      "target": "portable"
+    },
+    "portable": {
+      "artifactName": "Deadlock Optimized Launcher.exe",
+      "requestExecutionLevel": "admin"
+    },
+    "extraResources": [
+      {
+        "from": "bin",
+        "to": "bin",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ]
+  },
+  "keywords": [],
+  "author": "maiblemoccasin",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "ini": "^6.0.0"
+  },
+  "devDependencies": {
+    "electron": "^40.6.0",
+    "electron-builder": "^26.8.1"
+  }
+}
