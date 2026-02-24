@@ -8,7 +8,7 @@
 
 [![Platform](https://img.shields.io/badge/Platform-Windows-0078d7?style=flat-square&logo=windows)](https://github.com/)
 [![Built with](https://img.shields.io/badge/Built_with-Electron-47848f?style=flat-square&logo=electron)](https://electronjs.org)
-[![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3.0-blue?style=flat-square)](https://www.gnu.org/licenses/agpl-3.0)
 
 *Aggressively optimize your system memory and clear Windows working sets for the smoothest Deadlock experience possible.*
 
