@@ -21,7 +21,7 @@ contextBridge.exposeInMainWorld('api', {
 
   // Optimization & Launch
   optimizeRAM: () => ipcRenderer.invoke('optimize-ram'),
-  launchGame: (launcherPath) => ipcRenderer.invoke('launch-game', launcherPath),
+  launchGame: (launcherPath, disableSMT, highPriority) => ipcRenderer.invoke('launch-game', launcherPath, disableSMT, highPriority),
 
   // External
   openExternal: (url) => ipcRenderer.invoke('open-external', url),

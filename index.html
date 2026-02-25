@@ -32,9 +32,11 @@
 
     <ul class="nav-menu">
       <li class="nav-item">
-        <a href="#" class="nav-link active" id="nav-launcher">LAUNCHER</a>
+        <a class="nav-link active" id="nav-launcher">LAUNCHER</a>
       </li>
-      <li class="nav-item"><a href="#" class="nav-link" id="nav-about">ABOUT</a></li>
+      <li class="nav-item"><a class="nav-link" id="nav-additional">ADDITIONAL</a></li>
+      <li class="nav-item"><a class="nav-link" id="nav-statistics">STATISTICS</a></li>
+      <li class="nav-item"><a class="nav-link" id="nav-about">ABOUT</a></li>
     </ul>
   </aside>
 
@@ -47,17 +49,19 @@
     <div class="settings-panel">
       <h2 class="panel-title">System Insights</h2>
 
-      <div class="setting-row">
-        <div class="setting-label">Total RAM</div>
-        <div class="setting-control value-display" id="total-ram">--- GB</div>
+      <div class="setting-row" style="margin-top: 25px; align-items: center; gap: 30px;">
+        <div style="display: flex; gap: 10px;">
+          <div class="setting-label" style="flex: auto;">Total RAM:</div>
+          <div class="setting-control value-display" id="total-ram">--- GB</div>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <div class="setting-label" style="flex: auto;">Available RAM:</div>
+          <div class="setting-control value-display" id="available-ram" style="color: var(--accent-color);">--- GB</div>
+        </div>
       </div>
 
-      <div class="setting-row">
-        <div class="setting-label">Available RAM</div>
-        <div class="setting-control value-display" id="available-ram" style="color: var(--accent-color);">--- GB</div>
-      </div>
-
-      <div class="setting-row" style="margin-top: 20px;">
+      <div class="setting-row" style="margin-top: 35px;">
         <div class="setting-control fw">
           <div class="status-item" id="status-admin">
             <div class="status-icon pending"></div>
@@ -97,6 +101,67 @@
     </div>
   </main>
 
+  <!-- Main Content - ADDITIONAL tab -->
+  <main class="main-content" id="tab-additional" style="display: none;">
+    <div class="page-title">
+      <span>ADDITIONAL SETTINGS</span>
+    </div>
+
+    <div class="settings-panel has-bg">
+      <h2 class="panel-title">Launch Options</h2>
+
+      <label class="toggle-row">
+        <input type="checkbox" id="cb-disable-smt" class="toggle-input">
+        <div class="toggle-switch">
+          <span class="toggle-slider"></span>
+        </div>
+        <span class="toggle-label">Disable SMT (Use physical cores only)</span>
+      </label>
+
+      <label class="toggle-row" style="margin-top: 5px;">
+        <input type="checkbox" id="cb-high-priority" class="toggle-input">
+        <div class="toggle-switch">
+          <span class="toggle-slider"></span>
+        </div>
+        <span class="toggle-label">Enable High Priority</span>
+      </label>
+
+      <div class="info-text" style="margin-top: 30px;">
+        <p><strong>Note:</strong> These settings will apply automatically in the background when the game launches.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Main Content - STATISTICS tab -->
+  <main class="main-content" id="tab-statistics" style="display: none;">
+    <div class="page-title">
+      <span>STATISTICS</span>
+    </div>
+
+    <div class="settings-panel has-bg">
+      <h2 class="panel-title">Optimization Impact</h2>
+
+      <div class="setting-row" style="margin-top: 25px;">
+        <div class="setting-label" style="white-space: nowrap;">Total Times Launched:</div>
+        <div class="setting-control value-display" id="stat-launches">0</div>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-label" style="white-space: nowrap;">Total RAM Freed:</div>
+        <div class="setting-control value-display" id="stat-ram" style="color: var(--accent-color);">0 MB</div>
+      </div>
+
+      <div class="setting-row" style="margin-top: 20px;">
+        <button class="btn-apply" id="btn-reset-stats" style="margin-top:0;">Reset Statistics</button>
+      </div>
+
+      <div class="info-text" style="margin-top: 30px;">
+        <p><strong>Note:</strong> These statistics are recorded locally each time you launch the game via this
+          optimizer.</p>
+      </div>
+    </div>
+  </main>
+
   <!-- Main Content - ABOUT tab -->
   <main class="main-content" id="tab-about" style="display: none;">
     <div class="page-title">
@@ -118,8 +183,11 @@
       <div class="author-credits" style="text-align: left; margin-top: 40px;">
         <h2 class="panel-title">Credits</h2>
         <span class="author-link" id="author-link"
-          style="color: var(--text-main); font-size: 16px; cursor: pointer;">Author - <span
+          style="color: var(--text-main); font-size: 16px; cursor: pointer; display: block;">Author - <span
             style="color: var(--accent-color);">maiblemoccasin</span></span>
+        <div
+          style="margin-top: 15px; font-size: 14px; color: rgba(255, 255, 255, 0.4); text-transform: uppercase; letter-spacing: 0.5px;">
+          Deadlock is a registered trademark of Valve Corporation.</div>
       </div>
     </div>
   </main>

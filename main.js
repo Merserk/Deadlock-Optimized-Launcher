@@ -53,7 +53,7 @@ app.on('window-all-closed', function () {
 // -- IPC Handlers --
 
 ipcMain.on('window-minimize', () => mainWindow.minimize());
-ipcMain.on('window-close', () => mainWindow.close());
+ipcMain.on('window-close', () => app.exit(0));
 ipcMain.handle('open-external', async (event, url) => shell.openExternal(url));
 
 // Sys Info
@@ -193,7 +193,7 @@ ipcMain.handle('optimize-ram', async () => {
 });
 
 // Launch logic
-ipcMain.handle('launch-game', async (event, launcherPath) => {
+ipcMain.handle('launch-game', async (event, launcherPath, disableSMT, highPriority) => {
     try {
         if (!fs.existsSync(launcherPath)) {
             throw new Error(`Shortcut missing: ${launcherPath}`);
@@ -202,6 +202,51 @@ ipcMain.handle('launch-game', async (event, launcherPath) => {
         const error = await shell.openPath(launcherPath);
         if (error) {
             throw new Error(`Failed to open shortcut: ${error}`);
+        }
+
+        if (disableSMT || highPriority) {
+            const script = `
+$procNames = @("deadlock", "project8");
+$timeout = 60;
+$sw = [Diagnostics.Stopwatch]::StartNew();
+$process = $null;
+
+while ($sw.Elapsed.TotalSeconds -lt $timeout) {
+    foreach ($name in $procNames) {
+        $process = Get-Process -Name $name -ErrorAction SilentlyContinue | Select-Object -First 1;
+        if ($process) { break; }
+    }
+    if ($process) { break; }
+    Start-Sleep -Milliseconds 500;
+}
+
+if (-not $process) { exit; }
+
+if ("${highPriority}" -eq "true") {
+    try { $process.PriorityClass = [System.Diagnostics.ProcessPriorityClass]::High; } catch {}
+}
+
+if ("${disableSMT}" -eq "true") {
+    try {
+        $logicalCores = (Get-CimInstance -ClassName Win32_Processor | Measure-Object -Property NumberOfLogicalProcessors -Sum).Sum;
+        if (-not $logicalCores) { $logicalCores = [Environment]::ProcessorCount; }
+        $mask = [long]0;
+        for ($i = 0; $i -lt $logicalCores; $i += 2) {
+            $mask += [long][Math]::Pow(2, $i);
+        }
+        $process.ProcessorAffinity = [System.IntPtr][long]$mask;
+    } catch {}
+}
+`;
+            return new Promise((resolve) => {
+                const ps = spawn('powershell.exe', ['-NoProfile', '-WindowStyle', 'Hidden', '-Command', script], {
+                    stdio: 'ignore'
+                });
+
+                ps.on('close', () => {
+                    resolve(true);
+                });
+            });
         }
 
         return true;

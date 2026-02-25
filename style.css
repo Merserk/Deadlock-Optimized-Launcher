@@ -106,6 +106,13 @@ body {
     background-image: url('icon.png');
     background-size: cover;
     background-position: center;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.logo-icon:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(92, 230, 159, 0.4);
 }
 
 .logo-icon::after {
@@ -168,6 +175,7 @@ body {
     text-decoration: none;
     letter-spacing: 1px;
     transition: color 0.2s ease;
+    -webkit-user-drag: none;
 }
 
 .nav-link:hover:not(.active) {
@@ -617,4 +625,160 @@ input[type="text"].styled-input:read-only {
 
 .author-link:hover {
     color: var(--accent-color);
+}
+
+/* Custom Toggle Switch */
+.toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.toggle-input {
+    display: none;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    background-color: #0f1214;
+    /* Darker track */
+    border: 1px solid #232524;
+    border-radius: 30px;
+    transition: .4s;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8);
+    flex-shrink: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #2a2e33;
+    /* Unselected dot */
+    border-radius: 50%;
+    transition: .4s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.toggle-input:checked+.toggle-switch .toggle-slider {
+    transform: translateX(30px);
+    background-color: var(--accent-color);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000000'%3E%3Cpath d='M9 16.2l-4.2-4.2-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/%3E%3C/svg%3E");
+    background-size: 14px;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 0 0 12px rgba(92, 230, 159, 0.8), 0 0 25px rgba(92, 230, 159, 0.5);
+}
+
+.toggle-input:checked+.toggle-switch {
+    border-color: rgba(92, 230, 159, 0.2);
+}
+
+.toggle-label {
+    font-size: 15px;
+    font-family: var(--font-ui);
+    color: var(--text-main);
+    transition: color .4s, text-shadow .4s;
+    font-weight: 600;
+}
+
+.toggle-input:checked~.toggle-label {
+    color: var(--accent-color);
+    text-shadow: 0 0 10px rgba(92, 230, 159, 0.3);
+}
+
+/* --- Bouncing Ball Easter Egg --- */
+#bouncing-ball {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    /* High-contrast core with intense magenta and blue glow */
+    box-shadow: 
+        0 0 15px 5px #ffffff,
+        0 0 30px 10px #ff00ff,
+        0 0 50px 20px #00ffff;
+    z-index: 10000;
+    pointer-events: none;
+    display: none;
+    mix-blend-mode: screen;
+}
+
+.damaged-1 {
+    transform: rotate(2deg) scale(0.95);
+    filter: sepia(0.8) hue-rotate(-20deg) saturate(2);
+    border: 1px dashed rgba(255, 94, 94, 0.5) !important;
+    box-shadow: inset 0 0 5px rgba(255, 94, 94, 0.1);
+    opacity: 0.9;
+}
+
+.damaged-2 {
+    transform: rotate(-3deg) scale(0.90);
+    filter: sepia(1) hue-rotate(-30deg) saturate(3) contrast(1.2);
+    border: 2px solid var(--danger) !important;
+    box-shadow: inset 0 0 10px rgba(255, 94, 94, 0.3);
+    opacity: 0.7;
+}
+
+.damaged-3 {
+    transform: rotate(5deg) scale(0.85) skew(5deg);
+    filter: sepia(1.2) hue-rotate(-40deg) saturate(4) contrast(1.5);
+    border: 3px double var(--danger) !important;
+    box-shadow: inset 0 0 20px rgba(255, 94, 94, 0.6), 0 0 10px rgba(255, 94, 94, 0.4);
+    opacity: 0.5;
+    pointer-events: none;
+    /* Element becomes totally broken and unclickable */
+}
+
+.ball-trail {
+    position: absolute;
+    background-color: #ffffff;
+    border-radius: 50%;
+    z-index: 9999;
+    pointer-events: none;
+    animation: fadeOutTrail 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    mix-blend-mode: screen;
+}
+
+@keyframes fadeOutTrail {
+    0% {
+        opacity: 0.9;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0.1);
+    }
+}
+
+.ball-sparkle {
+    position: absolute;
+    background-color: #ffffff;
+    border-radius: 50%;
+    z-index: 9998;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    animation: fadeOutSparkle 0.8s ease-out forwards;
+}
+
+@keyframes fadeOutSparkle {
+    0% {
+        opacity: 1;
+        transform: scale(1) translate(0, 0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0) var(--sparkle-translate);
+    }
 }
