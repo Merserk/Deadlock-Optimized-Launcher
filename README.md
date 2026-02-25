@@ -25,7 +25,9 @@ The **Deadlock Optimized Launcher** is a custom, lightweight standalone executab
 
 - 🧹 **Aggressive RAM Optimization:** Uses official Microsoft Sysinternals tech (**RAMMap**) to safely flush your system's Standby List, Modified Page List, and System Working Sets.
 - ⚡ **Intelligent Fast Search:** No setup required. Utilizing a blistering-fast native scanner (`fd.exe`), it automatically finds your `Deadlock.url` or shortcut across your drives.
-- 📊 **Live System Monitoring:** A beautiful, custom-designed UI that displays your live Available RAM and Total RAM statistics in real-time.
+- ⚙️ **Advanced Launch Options:** Improve single-thread performance by automatically disabling SMT (Simultaneous Multithreading) and forcing High Priority mode when the game boots.
+- 📊 **Custom Statistics Tracker:** Keep track of your optimization impact natively! See your total times launched and the lifetime RAM freed in Megabytes/Gigabytes.
+- 💻 **Live System Monitoring:** A beautiful, multi-tabbed custom UI that displays your live Available RAM and Total RAM statistics in real-time.
 - 🎯 **Zero-Delay Launch Logic:** Visually tracks the memory cleared, displays the exact MB freed, and executes the game shortcut seamlessly.
 - 🧳 **Portable Engine:** No installation required. Run the single `.exe` from anywhere on your PC. Settings are remembered forever.
 
@@ -38,7 +40,7 @@ The **Deadlock Optimized Launcher** is a custom, lightweight standalone executab
 | **FPS** | 175 - 181 FPS | **183 - 190 FPS** |
 | **System RAM Usage** | 26.7 GB | **18.4 GB** |
 
-> *Note: RAM usage reflects total system RAM allocation. No background processes are forcefully closed; the gains are achieved purely through intelligent memory allocation optimization.*
+> *Note: RAM usage reflects total system RAM allocation. No background processes are forcefully closed; the gains are achieved purely through intelligent memory allocation optimization, SMT disabling, and Process Priority adjustments.*
 
 ## 🛡️ Is it Safe? (Anti-Cheat Friendly)
 
